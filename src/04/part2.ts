@@ -1,136 +1,67 @@
-import { Grid, GridNode } from "../utils/grid";
-import StringReader from "../utils/stringReader";
 import { Utils } from "../utils/utils";
 
 let answer = 0;
 
-interface MachineNode extends GridNode {
-  symbol: string;
-  isNumber: boolean;
+class Card {
+  constructor(cardId: string, winningNumbers: number[], yourNumbers: number[]) {
+    this.cardId = cardId;
+    this.winningNumbers.fill(-1);
+    this.yourNumbers.fill(-2);
+
+    for (let i = 0; i < winningNumbers.length; i++) {
+      this.winningNumbers[winningNumbers[i]] = 1;
+    }
+
+    for (let i = 0; i < yourNumbers.length; i++) {
+      this.yourNumbers[yourNumbers[i]] = 1;
+    }
+  }
+
+  cardId: string;
+  winningNumbers: number[] = Array(100);
+  yourNumbers: number[] = Array(100);
+  copies: number = 1;
+
+  points(): number {
+    let points = 0;
+    for (let i = 0; i < this.winningNumbers.length; i++) {
+      if (this.winningNumbers[i] == this.yourNumbers[i]) {
+        points++;
+      }
+    }
+
+    return points;
+  }
 }
 
-interface GearSegments {
-  nodes1: MachineNode[];
-  nodes2: MachineNode[];
-}
-
-const grid = new Grid<MachineNode>();
-let row = 0;
-
-Utils.lineReader<string>(
-  "src/03/input.txt",
-  /^.*$/,
+Utils.lineReader<Card>(
+  "src/04/input.txt",
+  /^Card +(\d+): (.*)$/,
   (match) => {
-    let column = 0;
-    const line = match[0];
-    const stringReader = new StringReader(line);
-    while (!stringReader.isEOL()) {
-      const char = stringReader.read(1);
+    const cardId = match[1];
+    const numberString = match[2];
+    const winningNumbersString = numberString.split(" | ")[0];
+    const yourNumbersString = numberString.split(" | ")[1];
 
-      if (char != ".") {
-        grid.set(column, row, {
-          column,
-          row,
-          symbol: char,
-          isNumber: !isNaN(+char),
-        });
-      }
-
-      column++;
-    }
-
-    row++;
-    return line;
+    return new Card(
+      cardId,
+      winningNumbersString.split(" ").map((c) => parseInt(c.trim())),
+      yourNumbersString.split(" ").map((c) => parseInt(c.trim()))
+    );
   },
-  (lines) => {
-    for (let r = 0; r < grid.rows; r++) {
-      for (let c = 0; c < grid.columns + 1; c++) {
-        const item = grid.getItemAt(c, r);
-        if (item?.symbol != "*") {
-          continue;
+  (cards) => {
+    for (let i = 0; i < cards.length; i++) {
+      const currentCard = cards[i];
+      for (let j = i + 1; j < i + currentCard.points() + 1; j++) {
+        cards[j].copies += currentCard.copies;
+        if (j == cards.length - 1) {
+          break;
         }
-
-        const adjacentNumberSegments = findAdjacentGearSegments(item, grid);
-        if (!adjacentNumberSegments) {
-          continue;
-        }
-
-        answer +=
-          parseInt(
-            adjacentNumberSegments.nodes1.map((item) => item.symbol).join("")
-          ) *
-          parseInt(
-            adjacentNumberSegments.nodes2.map((item) => item.symbol).join("")
-          );
       }
     }
+
+    answer = cards.map((card) => card.copies).reduce((a, b, _, __) => a + b);
+
     console.log(`The answer is: ${answer}`);
   }
 );
-
-function findAdjacentGearSegments(
-  item: MachineNode,
-  grid: Grid<MachineNode>
-): GearSegments {
-  const adjacentNumbers = grid
-    .getAdjacentItems(item.column, item.row)
-    .filter((i) => i.isNumber);
-
-  if (adjacentNumbers.length < 2) {
-    return null;
-  }
-
-  const gearSegments: GearSegments = {
-    nodes1: [],
-    nodes2: [],
-  };
-
-  for (let i = 0; i < adjacentNumbers.length; i++) {
-    const number = adjacentNumbers[i];
-    if (gearSegments.nodes1.length == 0) {
-      gearSegments.nodes1 = getSegmentForNumber(number);
-      continue;
-    }
-
-    if (gearSegments.nodes1.includes(number)) {
-      continue;
-    }
-
-    if (gearSegments.nodes2.length == 0) {
-      gearSegments.nodes2 = getSegmentForNumber(number);
-      continue;
-    }
-
-    if (gearSegments.nodes2.includes(number)) {
-      continue;
-    }
-
-    return null;
-  }
-  if (gearSegments.nodes1.length > 0 && gearSegments.nodes2.length > 0) {
-    return gearSegments;
-  }
-
-  return null;
-}
-
-function getSegmentForNumber(number: MachineNode): MachineNode[] {
-  const segment: MachineNode[] = [];
-  let startCol = number.column;
-  while (true) {
-    if (!grid.getItemAt(startCol - 1, number.row)?.isNumber) {
-      break;
-    }
-    startCol--;
-  }
-  segment.push(grid.getItemAt(startCol, number.row));
-
-  while (true) {
-    if (!grid.getItemAt(++startCol, number.row)?.isNumber) {
-      break;
-    }
-    segment.push(grid.getItemAt(startCol, number.row));
-  }
-
-  return segment;
-}
