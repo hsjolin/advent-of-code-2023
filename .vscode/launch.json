@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Launch Part 1",
-            "program": "${workspaceFolder}/built/02/part1.js",
+            "program": "${workspaceFolder}/built/03/part1.js",
             "request": "launch",
             "preLaunchTask": "tsc: build - tsconfig.json",
             "skipFiles": [
@@ -16,7 +16,7 @@
         },
         {
             "name": "Launch Part 2",
-            "program": "${workspaceFolder}/built/02/part2.js",
+            "program": "${workspaceFolder}/built/03/part2.js",
             "request": "launch",
             "preLaunchTask": "tsc: build - tsconfig.json",
             "skipFiles": [
