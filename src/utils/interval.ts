@@ -24,9 +24,9 @@ export class Interval {
 			(this.start <= interval.end && this.start >= interval.start);
 	}
 
-	join(interval: Interval): void {
+	join(interval: Interval): Interval {
 		if (this.includes(interval)) {
-			return;
+			return this;
 		}
 
 		if (!this.intersects(interval)) {
@@ -35,5 +35,7 @@ export class Interval {
 
 		this.start = Math.min(this.start, interval.start);
 		this.end = Math.max(this.end, interval.end);
+
+		return this;
 	}
 }
