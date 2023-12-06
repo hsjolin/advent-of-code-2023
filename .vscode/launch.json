@@ -5,7 +5,87 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Part 1",
+            "name": "#1 - part1",
+            "program": "${workspaceFolder}/built/01/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#1 - part2",
+            "program": "${workspaceFolder}/built/01/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#2 - part1",
+            "program": "${workspaceFolder}/built/02/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#2 - part2",
+            "program": "${workspaceFolder}/built/02/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#3 - part1",
+            "program": "${workspaceFolder}/built/03/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#3 - part2",
+            "program": "${workspaceFolder}/built/03/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#4 - part1",
+            "program": "${workspaceFolder}/built/04/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#4 - part2",
+            "program": "${workspaceFolder}/built/04/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#5 - part1",
             "program": "${workspaceFolder}/built/05/part1.js",
             "request": "launch",
             "preLaunchTask": "tsc: build - tsconfig.json",
@@ -15,7 +95,7 @@
             "type": "node"
         },
         {
-            "name": "Launch Part 2",
+            "name": "#5 - part2",
             "program": "${workspaceFolder}/built/05/part2.js",
             "request": "launch",
             "preLaunchTask": "tsc: build - tsconfig.json",
@@ -23,6 +103,386 @@
                 "node_modules/**"
             ],
             "type": "node"
-        }
+        },
+        {
+            "name": "#6 - part1",
+            "program": "${workspaceFolder}/built/06/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#6 - part2",
+            "program": "${workspaceFolder}/built/06/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#7 - part1",
+            "program": "${workspaceFolder}/built/07/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#7 - part2",
+            "program": "${workspaceFolder}/built/07/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#8 - part1",
+            "program": "${workspaceFolder}/built/08/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#8 - part2",
+            "program": "${workspaceFolder}/built/08/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#9 - part1",
+            "program": "${workspaceFolder}/built/09/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#9 - part2",
+            "program": "${workspaceFolder}/built/09/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#10 - part1",
+            "program": "${workspaceFolder}/built/10/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#10 - part2",
+            "program": "${workspaceFolder}/built/10/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#11 - part1",
+            "program": "${workspaceFolder}/built/11/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#11 - part2",
+            "program": "${workspaceFolder}/built/11/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#12 - part1",
+            "program": "${workspaceFolder}/built/12/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#12 - part2",
+            "program": "${workspaceFolder}/built/12/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#13 - part1",
+            "program": "${workspaceFolder}/built/13/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#13 - part2",
+            "program": "${workspaceFolder}/built/13/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#14 - part1",
+            "program": "${workspaceFolder}/built/14/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#14 - part2",
+            "program": "${workspaceFolder}/built/14/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#15 - part1",
+            "program": "${workspaceFolder}/built/15/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#15 - part2",
+            "program": "${workspaceFolder}/built/15/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#16 - part1",
+            "program": "${workspaceFolder}/built/16/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#16 - part2",
+            "program": "${workspaceFolder}/built/16/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#17 - part1",
+            "program": "${workspaceFolder}/built/17/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#17 - part2",
+            "program": "${workspaceFolder}/built/17/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#18 - part1",
+            "program": "${workspaceFolder}/built/18/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#18 - part2",
+            "program": "${workspaceFolder}/built/18/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#19 - part1",
+            "program": "${workspaceFolder}/built/19/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#19 - part2",
+            "program": "${workspaceFolder}/built/19/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#20 - part1",
+            "program": "${workspaceFolder}/built/20/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#20 - part2",
+            "program": "${workspaceFolder}/built/20/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#21 - part1",
+            "program": "${workspaceFolder}/built/21/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#21 - part2",
+            "program": "${workspaceFolder}/built/21/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#22 - part1",
+            "program": "${workspaceFolder}/built/22/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#22 - part2",
+            "program": "${workspaceFolder}/built/22/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#23 - part1",
+            "program": "${workspaceFolder}/built/23/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#23 - part2",
+            "program": "${workspaceFolder}/built/23/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#24 - part1",
+            "program": "${workspaceFolder}/built/24/part1.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "#24 - part2",
+            "program": "${workspaceFolder}/built/24/part2.js",
+            "request": "launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "type": "node"
+        },
     ]
 }

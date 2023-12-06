@@ -10,6 +10,6 @@ Utils.lineReader<string>(
 	},
 	result => {
 		answer = 0;
-		console.log("Answer", answer);
+		console.log(`The answer is: ${answer}`);
 	}
 );
