@@ -62,53 +62,57 @@ class Hand {
 				// Five of a kind!
 				return 6;
 			}
-			
+
 			if (card == "J") {
 				jokerCount += cardCount;
+			} else if (cardCount == 4) {
+				fourOfAKindCount++;
 			} else if (cardCount == 3) {
 				threeOfAKindCount++;
 			} else if (cardCount == 2) {
 				pairCount++;
-			} else if (cardCount == 4) {
-				fourOfAKindCount++;
 			}
 		}
 
-		if (jokerCount == 5
-			|| fourOfAKindCount == 1 && jokerCount == 1
-			|| threeOfAKindCount == 1 && jokerCount == 2) {
+		if (fourOfAKindCount == 1 && jokerCount == 1
+			|| threeOfAKindCount == 1 && jokerCount == 2
+			|| pairCount == 1 && jokerCount == 3
+			|| jokerCount == 4) {
 			// Five of a kind
 			return 6;
 		}
 
 		if (fourOfAKindCount == 1
 			|| threeOfAKindCount == 1 && jokerCount == 1
-			|| pairCount == 1 && jokerCount == 2) {
-			// Four of a kind!
+			|| pairCount == 1 && jokerCount == 2
+			|| jokerCount == 3
+			|| jokerCount == 4) {
+			// Four of a kind
 			return 5;
 		}
-		
+
 		if (pairCount == 1 && threeOfAKindCount == 1
-			|| threeOfAKindCount == 1 && jokerCount == 1
-			|| pairCount == 2 && jokerCount == 1) {
+			|| pairCount == 2 && jokerCount == 1
+			|| pairCount == 1 && jokerCount > 1) {
 			// Full house
 			return 4;
 		}
 
 		if (threeOfAKindCount == 1
 			|| pairCount == 1 && jokerCount == 1
-			|| jokerCount == 2) {
+			|| jokerCount > 1) {
 			// Three of a kind
 			return 3;
 		}
 
-		if (pairCount == 2
-			|| pairCount == 1 && jokerCount == 1) {
+		if (pairCount == 2 
+			|| pairCount == 1 && jokerCount > 0) {
 			// Two pairs
 			return 2;
 		}
 
-		if (pairCount == 1 || jokerCount == 1) {
+		if (pairCount == 1 
+			|| jokerCount > 0) {
 			// One pair
 			return 1;
 		}
@@ -128,8 +132,7 @@ Utils.lineReader<Hand>(
 		result.sort((a, b) => compareHands(a, b));
 		result.forEach((hand, index) => {
 			console.log(
-				`Hand: ${hand.hand}, points: ${hand.getPoints()}, bid: ${hand.bid}, rank: ${
-					index + 1
+				`Hand: ${hand.hand}, points: ${hand.getPoints()}, bid: ${hand.bid}, rank: ${index + 1
 				}`
 			);
 		});
@@ -141,6 +144,7 @@ Utils.lineReader<Hand>(
 		console.log(`The answer is: ${answer}`);
 	}
 );
+
 function compareHands(a: Hand, b: Hand): number {
 	const aPoints = a.getPoints();
 	const bPoints = b.getPoints();
