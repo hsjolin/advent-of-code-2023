@@ -59,15 +59,6 @@ export class Grid<T extends GridNode> {
 		this.columnMax = column > this.columnMax ? column : this.columnMax;
 		this.columnMin = column < this.columnMin ? column : this.columnMin;
 		this.columns = this.columnMax - this.columnMin + 1;
-
-		// for (let row = this.rowMin; row < this.rowMax + 1; row++) {
-		// 	for (let column = this.columnMin; column < this.columnMax + 1; column++) {
-		// 		let item = this.getItemAt(column, row);
-		// 		if (item == null) {
-		// 			this.items[this.key(column, row)] = { column: column, row: row } as T;
-		// 		}
-		// 	}
-		// }
 	}
 
 	find(func: (arg: T) => boolean): T {
@@ -109,9 +100,10 @@ export class Grid<T extends GridNode> {
 	}
 
 	print(func: (arg: T) => string) {
+		const padding = this.rowMax.toString().length;
 		for (let r = this.rowMin; r < this.rowMax + 1; r++) {
 			const row = this.getRowAt(r);
-			console.log(`${r}\t`, row.map(i => func(i)).join(""));
+			console.log(`${r.toString().padStart(padding, "0")}`, row.map(i => func(i)).join(""));
 		}
 	}
 }
