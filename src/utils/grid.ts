@@ -86,6 +86,21 @@ export class Grid<T extends GridNode> {
 		return result;
 	}
 
+	fillArea(currentNode: T, nodeCallback: (arg: T) => boolean): number {
+		if (currentNode == null) {
+			return 0;
+		}
+
+		if (!nodeCallback(currentNode)) {
+			return 0;
+		}
+
+		return this.fillArea(this.getItemAt(currentNode.column, currentNode.row - 1), nodeCallback)
+			+ this.fillArea(this.getItemAt(currentNode.column, currentNode.row + 1), nodeCallback)
+			+ this.fillArea(this.getItemAt(currentNode.column - 1, currentNode.row), nodeCallback)
+			+ this.fillArea(this.getItemAt(currentNode.column + 1, currentNode.row), nodeCallback);
+	}
+
 	getAdjacentItems(column: number, row: number): T[] {
 		return [
 			this.getItemAt(column - 1, row - 1),
