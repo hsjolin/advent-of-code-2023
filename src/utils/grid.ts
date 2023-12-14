@@ -25,9 +25,38 @@ export class Grid<T extends GridNode> {
 		return this.filter(t => t.row == row).sort((a, b) => a.column - b.column);
 	}
 
+	insertRowAt(rowIndex: number, row: T[]) {
+		for (let r = this.rowMax + 1; r > rowIndex; r--) {
+			const rowToMove = this.getRowAt(r - 1);
+			for (let c = 0; c < this.columnMax + 1; c++) {
+				this.set(c, r, rowToMove[c]);
+			}
+		}
+
+		for (let c = 0; c < this.columnMax; c++) {
+			this.set(c, row[c].row, row[c]);
+		}
+	}
+
+	insertColumnAt(columnIndex: number, column: T[]) {
+		for (let c = this.columnMax + 1; c > columnIndex; c--) {
+			const columnToMove = this.getColumnAt(c - 1);
+			for (let r = 0; r < this.rowMax + 1; r++) {
+				this.set(c, r, columnToMove[r]);
+			}
+		}
+
+		for (let r = 0; r < this.rowMax; r++) {
+			this.set(column[r].column, r, column[r]);
+		}
+	}
+
 	getItemAt(column: number, row: number): T {
 		const item = this.items[this.key(column, row)];
 		if (item != null) {
+			item.row = row;
+			item.column = column;
+
 			return item;
 		}
 
