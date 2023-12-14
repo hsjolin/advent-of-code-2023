@@ -42,9 +42,9 @@ Utils.lineReader<Node[]>(
     while (!walker.isDoneWalking()) {
       const previousNode = walker.currentNode;
       walker.continue();
-      const nodesToCheck = [getNodeOnSide(previousNode, walker.direction, outSideDirection),
-      getNodeOnSide(walker.currentNode, walker.direction, outSideDirection)]
-        .filter(n => n);
+      const nodesToCheck = [walker.getNodeOnSide(previousNode, outSideDirection),
+        walker.getNodeOnSide(walker.currentNode, outSideDirection)]
+          .filter(n => n);
 
       for (let i = 0; i < nodesToCheck.length; i++) {
         var outsideNode = nodesToCheck[i];
@@ -66,27 +66,6 @@ Utils.lineReader<Node[]>(
     console.log(`The answer is: ${answer}`);
   }
 );
-
-function getNodeOnSide(currentNode: Node, walkingDirection: Direction, direction: Direction): Node {
-  switch (walkingDirection) {
-    case Direction.up:
-      return direction == Direction.left
-        ? grid.getItemAt(currentNode.column - 1, currentNode.row)
-        : grid.getItemAt(currentNode.column + 1, currentNode.row);
-    case Direction.down:
-      return direction == Direction.left
-        ? grid.getItemAt(currentNode.column + 1, currentNode.row)
-        : grid.getItemAt(currentNode.column - 1, currentNode.row);
-    case Direction.left:
-      return direction == Direction.left
-        ? grid.getItemAt(currentNode.column, currentNode.row + 1)
-        : grid.getItemAt(currentNode.column, currentNode.row - 1);
-    case Direction.right:
-      return direction == Direction.left
-        ? grid.getItemAt(currentNode.column, currentNode.row - 1)
-        : grid.getItemAt(currentNode.column, currentNode.row + 1);
-  }
-}
 
 function getSymbol(node: Node): string {
   if (node.outside === false) {

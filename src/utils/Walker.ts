@@ -52,6 +52,27 @@ export class Walker {
     return false;
   }
 
+  getNodeOnSide(currentNode: Node, direction: Direction): Node {
+    switch (this.direction) {
+      case Direction.up:
+        return direction == Direction.left
+          ? this.grid.getItemAt(currentNode.column - 1, currentNode.row)
+          : this.grid.getItemAt(currentNode.column + 1, currentNode.row);
+      case Direction.down:
+        return direction == Direction.left
+          ? this.grid.getItemAt(currentNode.column + 1, currentNode.row)
+          : this.grid.getItemAt(currentNode.column - 1, currentNode.row);
+      case Direction.left:
+        return direction == Direction.left
+          ? this.grid.getItemAt(currentNode.column, currentNode.row + 1)
+          : this.grid.getItemAt(currentNode.column, currentNode.row - 1);
+      case Direction.right:
+        return direction == Direction.left
+          ? this.grid.getItemAt(currentNode.column, currentNode.row - 1)
+          : this.grid.getItemAt(currentNode.column, currentNode.row + 1);
+    }
+  }
+  
   _calculateDirection(currentNode: Node, nextNode: Node): Direction {
     if (currentNode.column < nextNode.column && currentNode.row == nextNode.row) {
       return Direction.right;
