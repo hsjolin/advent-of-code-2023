@@ -10,6 +10,14 @@ export default class StringReader {
 		this.position = 0;
 	};
 
+	getAsciiCode = function () {
+		if (this.isEOL()) {
+			return null;
+		}
+		
+		return this.string.charCodeAt(this.position);
+	}
+
 	isEOL = function () {
 		return this.position >= this.string.length;
 	};
