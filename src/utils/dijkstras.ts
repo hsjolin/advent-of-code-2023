@@ -1,5 +1,4 @@
 import { GridNode, Grid } from "./grid";
-import { resetPosition } from "./stringUtil";
 
 export interface DijkstrasNode extends GridNode {
 	sourceNode: DijkstrasNode;
@@ -12,6 +11,7 @@ export class Dijkstras<T extends DijkstrasNode> {
 	private estimatedNodes: T[] = [];
 	private grid: Grid<T>;
 	private adjacentSelector: (currentNode: T) => T[];
+	private nodeEstimatedEventFunc: (currentNode: DijkstrasNode, nextNode: DijkstrasNode) => boolean;
 
 	constructor(grid: Grid<T>) {
 		this.grid = grid;
@@ -34,6 +34,10 @@ export class Dijkstras<T extends DijkstrasNode> {
 
 	setAdjacentSelector(selector: (currentNode: T) => T[]) {
 		this.adjacentSelector = selector;
+	}
+
+	nodeEstimatedEvent(eventMethod: (currentNode: DijkstrasNode, nextNode: DijkstrasNode) => boolean) {
+		this.nodeEstimatedEventFunc = eventMethod;
 	}
 
 	findShortestPath = (
@@ -83,7 +87,7 @@ export class Dijkstras<T extends DijkstrasNode> {
 			node.sourceNode = sourceNode;
 		}
 
-		if (!node.explored && !this.estimatedNodes.find(n => n == node)) {
+		if (!node.explored && !this.estimatedNodes.find(n => n == node) && this.nodeEstimatedEventFunc(sourceNode, node)) {
 			this.estimatedNodes.push(node);
 			this.estimatedNodes.sort((a, b) => b.totalDistance - a.totalDistance);
 		}
