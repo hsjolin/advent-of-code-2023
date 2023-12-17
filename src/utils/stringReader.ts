@@ -51,7 +51,7 @@ export default class StringReader {
 			return null;
 		}
 
-		this.string[this.position - 1];
+		return this.string[this.position - 1];
 	}
 
 	readUntil = function (charFunc: (char: string) => boolean): string {
