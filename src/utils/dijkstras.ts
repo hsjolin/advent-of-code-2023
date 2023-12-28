@@ -11,7 +11,8 @@ export class Dijkstras<T extends DijkstrasNode> {
 	private estimatedNodes: T[] = [];
 	private grid: Grid<T>;
 	private adjacentSelector: (currentNode: T) => T[];
-	private nodeEstimatedEventFunc: (currentNode: DijkstrasNode, nextNode: DijkstrasNode) => boolean;
+	private nodeEstimatingEventFunc: (sourceNode: DijkstrasNode, nextNode: DijkstrasNode) => boolean 
+		= (_) => true;
 
 	constructor(grid: Grid<T>) {
 		this.grid = grid;
@@ -36,8 +37,8 @@ export class Dijkstras<T extends DijkstrasNode> {
 		this.adjacentSelector = selector;
 	}
 
-	nodeEstimatedEvent(eventMethod: (currentNode: DijkstrasNode, nextNode: DijkstrasNode) => boolean) {
-		this.nodeEstimatedEventFunc = eventMethod;
+	nodeEstimatingEvent(eventMethod: (currentNode: DijkstrasNode, nextNode: DijkstrasNode) => boolean) {
+		this.nodeEstimatingEventFunc = eventMethod;
 	}
 
 	findShortestPath = (
@@ -49,13 +50,12 @@ export class Dijkstras<T extends DijkstrasNode> {
 
 		startNode.explored = true;
 		startNode.totalDistance = 0;
-		startNode.distance = 0;
 
 		let currentNode = startNode;
 
 		while (currentNode != destinationNode) {
 			const adjacentNodes = this.adjacentSelector(currentNode)
-				.filter(n => adjacentFilter(n, currentNode) && !n.explored);
+				.filter(n => n.explored === false && adjacentFilter(n, currentNode));
 
 			adjacentNodes.forEach(adjecent => {
 				this.estimateNode(currentNode, adjecent);
@@ -80,14 +80,20 @@ export class Dijkstras<T extends DijkstrasNode> {
 	};
 
 	estimateNode = (sourceNode: T, node: T) => {
+		if (!this.nodeEstimatingEventFunc(sourceNode, node)) {
+			return;
+		}
+
 		if (sourceNode == null) {
 			node.totalDistance = 0;
 		} else if (node.totalDistance > sourceNode.totalDistance + node.distance) {
 			node.totalDistance = sourceNode.totalDistance + node.distance;
 			node.sourceNode = sourceNode;
+		} else {
+			return;
 		}
 
-		if (!node.explored && !this.estimatedNodes.find(n => n == node) && this.nodeEstimatedEventFunc(sourceNode, node)) {
+		if (!node.explored && !this.estimatedNodes.find(n => n == node)) {
 			this.estimatedNodes.push(node);
 			this.estimatedNodes.sort((a, b) => b.totalDistance - a.totalDistance);
 		}

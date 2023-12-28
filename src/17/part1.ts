@@ -7,9 +7,6 @@ let answer = 0;
 let row = 0;
 const grid = new Grid<DijkstrasNode>();
 const dijkstras = new Dijkstras(grid);
-dijkstras.nodeEstimatedEvent((currentNode, nextNode) => {
-	return true;
-});
 
 // interface History {
 // 	direction: Direction,
@@ -20,34 +17,30 @@ dijkstras.nodeEstimatedEvent((currentNode, nextNode) => {
 
 dijkstras.setAdjacentSelector(currentNode => {
 	let adjacentNodes = grid.getAdjacentItems(currentNode.column, currentNode.row)
-		.filter(nextNode => !nextNode.explored)
 		.filter(nextNode => nextNode.row == currentNode.row || nextNode.column == currentNode.column)
 		.filter(nextNode => {
-			let counter = 0;
-			let node = nextNode.sourceNode;
-			if (!node) {
+			if (nextNode.explored) {
+				return false;
+			}
+
+			const sourceNodes: DijkstrasNode[] = [nextNode, currentNode];
+			let sourceNode = currentNode.sourceNode;
+
+			while (sourceNode != null && sourceNodes.length < 5) {
+				sourceNodes.push(sourceNode);
+				sourceNode = sourceNode.sourceNode;
+			}
+
+			if (sourceNodes.length < 5) {
 				return true;
 			}
-			const direction = node.column == nextNode.column ? Direction.down : Direction.right;
-			while(true) {
-				if (direction == Direction.down && node.column == nextNode.column 
-					|| direction == Direction.right && node.row == nextNode.row) {
-					counter++;
-				}
-				else {
-					return true;
-				}
 
-				if (counter == 3) {
-					return false;
-				}
+			const isOnSameRowOrColumn = sourceNodes.every(n => n.column == currentNode.column) 
+				||  sourceNodes.every(n => n.row == currentNode.row);
 
-				node = node.sourceNode;
-			}
-		});
-	
-	
-	return adjacentNodes;
+			return !isOnSameRowOrColumn;
+		})
+		return adjacentNodes;
 });
 
 Utils.lineReader<string>(
@@ -70,17 +63,12 @@ Utils.lineReader<string>(
 		answer = 0;
 		const start = grid.getItemAt(0, 0);
 		const destination = grid.getItemAt(grid.columns - 1, grid.rows - 1);
-		
-		// historyMap["0-0"] = {
-		// 	previousNode: null,
-		// 	direction: null,
-		// 	stepCounter: 0
-		// };
 
 		const shortestPath = dijkstras.findShortestPath(start, destination);
-		answer = shortestPath[0].totalDistance;
+		answer = shortestPath[0].totalDistance - start.distance;
 
 		grid.print(c => shortestPath.includes(c) ? "*" : c.distance.toString());
+		// grid.print(c => c.distance.toString());
 		console.log(`The answer is: ${answer}`);
 	}
 );
