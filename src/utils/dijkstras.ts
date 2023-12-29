@@ -5,21 +5,18 @@ export interface DijkstrasNode extends GridNode {
 	explored: boolean;
 	totalDistance: number;
 	distance: number;
+	shortestPathNode: boolean;
 }
 
 export class Dijkstras<T extends DijkstrasNode> {
 	private estimatedNodes: T[] = [];
 	private grid: Grid<T>;
 	private adjacentSelector: (currentNode: T) => T[];
-	private nodeEstimatingEventFunc: (sourceNode: DijkstrasNode, nextNode: DijkstrasNode) => boolean 
-		= (_) => true;
 
 	constructor(grid: Grid<T>) {
 		this.grid = grid;
-		this.adjacentSelector = (currentNode) => this.grid.getAdjacentItems(
-			currentNode.column,
-			currentNode.row
-		);
+		this.adjacentSelector = currentNode =>
+			this.grid.getAdjacentItems(currentNode.column, currentNode.row);
 	}
 
 	reset() {
@@ -37,10 +34,6 @@ export class Dijkstras<T extends DijkstrasNode> {
 		this.adjacentSelector = selector;
 	}
 
-	nodeEstimatingEvent(eventMethod: (currentNode: DijkstrasNode, nextNode: DijkstrasNode) => boolean) {
-		this.nodeEstimatingEventFunc = eventMethod;
-	}
-
 	findShortestPath = (
 		startNode: T,
 		destinationNode: T,
@@ -53,26 +46,32 @@ export class Dijkstras<T extends DijkstrasNode> {
 
 		let currentNode = startNode;
 
-		while (currentNode != destinationNode) {
-			const adjacentNodes = this.adjacentSelector(currentNode)
-				.filter(n => n.explored === false && adjacentFilter(n, currentNode));
+		while (true) {
+			const adjacentNodes = this.adjacentSelector(currentNode).filter(
+				n => adjacentFilter(n, currentNode)
+			);
 
 			adjacentNodes.forEach(adjecent => {
 				this.estimateNode(currentNode, adjecent);
 			});
 
 			if (!this.estimatedNodes.length) {
-				throw Error("this.estimatedNodes is empty :-(");
+				throw Error("EstimatedNodes is empty :-(");
 			}
 
-			const next = this.estimatedNodes.pop();
+			let next = this.estimatedNodes.pop();
 			this.exploreNode(next);
 			currentNode = next;
+		
+			if (next == destinationNode) {
+				break;
+			}
 		}
 
 		let result: T[] = [];
 		while (currentNode != null) {
 			result.push(currentNode);
+			currentNode.shortestPathNode = true;
 			currentNode = currentNode.sourceNode as T;
 		}
 
@@ -80,10 +79,6 @@ export class Dijkstras<T extends DijkstrasNode> {
 	};
 
 	estimateNode = (sourceNode: T, node: T) => {
-		if (!this.nodeEstimatingEventFunc(sourceNode, node)) {
-			return;
-		}
-
 		if (sourceNode == null) {
 			node.totalDistance = 0;
 		} else if (node.totalDistance > sourceNode.totalDistance + node.distance) {
@@ -93,7 +88,7 @@ export class Dijkstras<T extends DijkstrasNode> {
 			return;
 		}
 
-		if (!node.explored && !this.estimatedNodes.find(n => n == node)) {
+		if (node.explored === false && !this.estimatedNodes.includes(node)) {
 			this.estimatedNodes.push(node);
 			this.estimatedNodes.sort((a, b) => b.totalDistance - a.totalDistance);
 		}

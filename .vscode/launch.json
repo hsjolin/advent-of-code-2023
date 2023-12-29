@@ -328,7 +328,7 @@
             "name": "#17 - part1",
             "program": "${workspaceFolder}/built/17/part1.js",
             "request": "launch",
-            "preLaunchTask": "tsc: build - tsconfig.json",
+            // "preLaunchTask": "tsc: build - tsconfig.json",
             "skipFiles": [
                 "node_modules/**"
             ],
