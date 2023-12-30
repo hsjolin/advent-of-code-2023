@@ -149,5 +149,15 @@ export class Grid<T extends GridNode> {
 			const row = this.getRowAt(r);
 			console.log(`${r.toString().padStart(padding, "0")}`, row.map(i => func(i)).join(""));
 		}
+
+		const cpadding = this.columnMax.toString().length;
+		const columnStrings: string[] = [];
+		for (let c = this.columnMin; c < this.columnMax + 1; c++) {
+			columnStrings.push(c.toString().padEnd(cpadding, "."));
+		}
+
+		for (let c = 0; c < this.columnMax.toString().length; c++) {
+			console.log(`${"".padEnd(padding)} ${columnStrings.map(s => s[c]).join("")}`);
+		}
 	}
 }
