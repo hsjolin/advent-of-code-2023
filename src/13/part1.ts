@@ -40,8 +40,8 @@ Utils.lineReader<Grid<Node>>(
 			const grid = result[index];
 			const checksums = calculateChecksums(grid);
 			const reflection =
-				findReflectionIndex(checksums.filter(c => c.direction == "r")) ??
-				findReflectionIndex(checksums.filter(c => c.direction == "c"));
+				findReflectionIndex(checksums.filter(c => c.direction == "c")) ??
+				findReflectionIndex(checksums.filter(c => c.direction == "r"));
 
 			grid.print(n => n.symbol);
 			console.log(reflection);
