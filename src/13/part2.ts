@@ -10,7 +10,7 @@ interface Node extends GridNode {
 	symbol: string
 }
 
-interface Checksum {
+interface Reflection {
 	direction: string;
 	index: number;
 	value: number;
@@ -38,10 +38,9 @@ Utils.lineReader<Grid<Node>>(
 
 		for (let index = 0; index < result.length; index++) {
 			const grid = result[index];
-			const checksums = calculateChecksums(grid);
 			const reflection =
-				findReflectionIndex(checksums.filter(c => c.direction == "c")) ??
-				findReflectionIndex(checksums.filter(c => c.direction == "r"));
+				findReflectionIndex(grid, "c") ??
+				findReflectionIndex(grid, "r");
 
 			grid.print(n => n.symbol);
 			console.log(reflection);
@@ -56,32 +55,9 @@ Utils.lineReader<Grid<Node>>(
 	}
 );
 
-function calculateChecksums(grid: Grid<Node>): Checksum[] {
-	const result: Checksum[] = [];
-	for (let columnIndex = 0; columnIndex < grid.columns; columnIndex++) {
-		const columnItems = grid.getColumnAt(columnIndex);
-		result.push({ value: calculateChecksum(columnItems), direction: "c", index: columnIndex });
-	}
+function findReflectionIndex(grid: Grid<Node>, direction: string): Reflection {
+	const checksums: Reflection[] = [];
 
-	for (let rowIndex = 0; rowIndex < grid.rows; rowIndex++) {
-		const rowItems = grid.getRowAt(rowIndex);
-		result.push({ value: calculateChecksum(rowItems), direction: "r", index: rowIndex });
-	}
-
-	return result;
-}
-
-function calculateChecksum(nodes: Node[]): number {
-	let checksum = 0;
-	nodes.forEach((node, index) => {
-		const b = Math.pow(2, index);
-		checksum += (node.symbol == "#" ? 1 : 0) * b;
-	});
-
-	return checksum;
-}
-
-function findReflectionIndex(checksums: Checksum[]): Checksum {
 	const first = checksums[0];
 	const seconds = checksums.filter(c => c.value == first.value && c.index > first.index);
 	for (let i = 0; i < seconds.length; i++) {
