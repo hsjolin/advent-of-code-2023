@@ -20,7 +20,7 @@ export class Walker {
   continue() {
     const adjacent = this.grid
       .getAdjacentItems(this.currentNode.column, this.currentNode.row)
-      .filter((node) => this._canWalkTo(node));
+      .filter((node) => this.canWalkTo(node));
 
     if (this.currentNode.startingPoint && adjacent.length != 2) {
       throw Error("WFT! Should have two directions when on starting point");
@@ -31,7 +31,7 @@ export class Walker {
     }
 
     const nextNode = adjacent[0];
-    this.direction = this._calculateDirection(this.currentNode, nextNode);
+    this.direction = this.calculateDirection(this.currentNode, nextNode);
     if (this.direction == Direction.left && this.turns.includes(this.currentNode.symbol)) {
       this.leftTurns++;
     } else if (this.direction == Direction.right && this.turns.includes(this.currentNode.symbol)) {
@@ -73,7 +73,7 @@ export class Walker {
     }
   }
   
-  _calculateDirection(currentNode: Node, nextNode: Node): Direction {
+  private calculateDirection(currentNode: Node, nextNode: Node): Direction {
     if (currentNode.column < nextNode.column && currentNode.row == nextNode.row) {
       return Direction.right;
     }
@@ -90,7 +90,7 @@ export class Walker {
     return null;
   }
 
-  _canWalkTo(node: Node): boolean {
+  private canWalkTo(node: Node): boolean {
     if (node.visited) {
       return false;
     }
@@ -99,7 +99,7 @@ export class Walker {
       return false;
     }
 
-    const direction = this._calculateDirection(this.currentNode, node);
+    const direction = this.calculateDirection(this.currentNode, node);
     if (!direction) {
       return false;
     }

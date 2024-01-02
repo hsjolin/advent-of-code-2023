@@ -124,10 +124,17 @@ export class Grid<T extends GridNode> {
 			return 0;
 		}
 
-		return this.fillArea(this.getItemAt(currentNode.column, currentNode.row - 1), nodeCallback)
+		return 1 + this.fillArea(this.getItemAt(currentNode.column, currentNode.row - 1), nodeCallback)
 			+ this.fillArea(this.getItemAt(currentNode.column, currentNode.row + 1), nodeCallback)
 			+ this.fillArea(this.getItemAt(currentNode.column - 1, currentNode.row), nodeCallback)
 			+ this.fillArea(this.getItemAt(currentNode.column + 1, currentNode.row), nodeCallback);
+	}
+
+	getManhattanDistance(item1: T, item2: T): number {
+		const colDiff = Math.abs(item1.column - item2.column);
+		const rowDiff = Math.abs(item1.row - item2.row);
+
+		return colDiff + rowDiff;
 	}
 
 	getAdjacentItems(column: number, row: number): T[] {
